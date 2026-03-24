@@ -59,10 +59,113 @@ let rservation = new Reservation(
 let rsservation = new Reservation(
   "11",
   "soufyane",
-  45,
+  12,
   "2025/02",
   "09:23",
   "07228363533",
 );
 rsservation.annullerReservation();
-console.log(rsservation.listerEtFiltrerParheour("2025/02"));
+// console.log(rsservation.listerEtFiltrerParheour("2025/02"));
+
+// ## R-Challenge 8 — Le panier e-commerce intelligent
+
+// Tu développes la logique du panier d'un site e-commerce.
+
+// 1. Le panier contient un tableau d'articles. Chaque article référence un produit (id, nom, prix, stock_disponible) et une quantité
+// 2. Fonction pour ajouter un produit : si déjà dans le panier, augmente la quantité (sans dépasser le stock disponible). Si pas dans le panier, ajoute-le
+// 3. Fonction pour modifier la quantité : vérifie que la nouvelle quantité ne dépasse pas le stock
+// 4. Fonction pour supprimer un article du panier
+// 5. Fonctions de calcul : sous-total par article (prix × quantité), total du panier, nombre total d'articles
+// 6. Système de codes promo : "BIENVENUE" = -15% sur le premier achat, "NOEL2025" = -10€ si le total > 50€, "LIVGRATUITE" = -7€ (frais de livraison offerts). Un seul code applicable à la fois
+// 7. Récapitulatif complet : chaque ligne, sous-total, remise (si code promo), frais de livraison (7€ gratuits si total > 100€), TVA (20%), total TTC
+
+let panier = [
+  {
+    produit: {
+      id: 1,
+      nom: "Cafetière à piston",
+      prix: 29.99,
+      stock_disponible: 15,
+    },
+    quantite: 2,
+  },
+  {
+    produit: {
+      id: 2,
+      nom: "Mug en céramique",
+      prix: 12.5,
+      stock_disponible: 42,
+    },
+    quantite: 4,
+  },
+];
+// function ajouterUnProduit(array, produit) {
+//   if (array.includes(produit)) {
+//     produit.quantite++;
+//   } else {
+//     array.push(produit);
+//   }
+// }
+let produit = {
+  produit: {
+    id: 5,
+    nom: "Cafetière à piston",
+    prix: 29.99,
+    stock_disponible: 15,
+  },
+  quantite: 2,
+};
+// ajouterUnProduit(panier, produit);
+// console.log(panier);
+
+function ajouterUnProduit(array, nouveauProduit) {
+  let produitExistant = array.find(
+    (item) => item.produit.id === nouveauProduit.produit.id,
+  );
+
+  if (produitExistant) {
+    produitExistant.quantite += nouveauProduit.quantite;
+  } else {
+    array.push(nouveauProduit);
+  }
+}
+ajouterUnProduit(panier, produit);
+console.log(panier);
+
+function modifierQuantite(produit, newQuantity) {
+  if (newQuantity <= produit.stock_disponible) produit.quantite = newQuantity;
+  else console.log("Stock insiffusant");
+}
+function supprimerUnProduit(produit, array) {
+  indexToDelete = array.indexOf(produit);
+  array.splice(indexToDelete, 1);
+}
+supprimerUnProduit(produit, panier);
+console.log(panier);
+
+function calculerSousTotal(array, codePromo) {
+  array.forEach((item) => {
+    console.log(
+      "Article : " +
+        item.produit.nom +
+        "Sous-total : " +
+        item.produit.prix * item.quantite,
+    );
+  });
+  let toto = 0;
+  let titi = 0;
+  array.forEach((element) => {
+    toto += element.produit.prix * element.quantite;
+    titi += element.quantite;
+  });
+  if (codePromo == "BIENVENUE") {
+    toto -= toto * 0.15;
+  } else if (codePromo == "NOEL2025" && toto >= 50) {
+    toto -= 10;
+  } else if (codePromo == "LIVGRATUITE") {
+    toto -= 7;
+  }
+  console.log("Nombre des articles : " + titi);
+  console.log("Total : " + toto);
+}
+console.log(calculerSousTotal(panier, "LIVGRATUITE"));
