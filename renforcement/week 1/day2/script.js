@@ -251,22 +251,19 @@ console.log(calculateTotal(inventaire));
 
 //ex04
 
-
-
-quantityPerQuategory(array){
-  let meatCount = 0;
-  let vegCount = 0;
-  let spiceCount = 0;
-  let drinkCount = 0;
-  array.forEach(item =>{
-    switch(item.categorie){
-      case "épice" :
-        spiceCount++
-        break;
-    }
-  });
-}
-
+// quantityPerQuategory(array){
+//   let meatCount = 0;
+//   let vegCount = 0;
+//   let spiceCount = 0;
+//   let drinkCount = 0;
+//   array.forEach(item =>{
+//     switch(item.categorie){
+//       case "épice" :
+//         spiceCount++
+//         break;
+//     }
+//   });
+// }
 
 //ex05
 function makeAnOrder(array, ingredient, quantite) {
@@ -284,3 +281,119 @@ function makeAnOrder(array, ingredient, quantite) {
   }
 }
 makeAnOrder(inventaire, "Jus d'orange", 2);
+
+// ## R-Challenge 6 — Le classement sportif 🔥
+
+// Tu gères le classement d'un tournoi de football. Chaque équipe est un objet : nom, points, buts_pour, buts_contre, matchs_joues.
+
+// 1. Crée 8 équipes avec des statistiques variées
+// 2. Calcule la différence de buts pour chaque équipe (buts_pour - buts_contre)
+// 3. Trie le classement : d'abord par points décroissant, puis par différence de buts en cas d'égalité
+// 4. Affiche le classement formaté avec le rang : "1. PSG — 45 pts (diff: +28)"
+// 5. Simule un match entre 2 équipes (score aléatoire) : mets à jour les points (3 pour victoire, 1 pour nul, 0 pour défaite), les buts pour/contre et les matchs joués
+// 6. Après 5 matchs simulés, réaffiche le classement mis à jour
+
+const classement = [
+  {
+    nom: "Équipe A",
+    points: 18,
+    buts_pour: 22,
+    buts_contre: 8,
+    matchs_joues: 7,
+  },
+  {
+    nom: "Équipe B",
+    points: 15,
+    buts_pour: 14,
+    buts_contre: 6,
+    matchs_joues: 7,
+  },
+  {
+    nom: "Équipe C",
+    points: 12,
+    buts_pour: 15,
+    buts_contre: 12,
+    matchs_joues: 7,
+  },
+  {
+    nom: "Équipe D",
+    points: 10,
+    buts_pour: 10,
+    buts_contre: 10,
+    matchs_joues: 7,
+  },
+  {
+    nom: "Équipe E",
+    points: 9,
+    buts_pour: 8,
+    buts_contre: 11,
+    matchs_joues: 7,
+  },
+  {
+    nom: "Équipe F",
+    points: 7,
+    buts_pour: 9,
+    buts_contre: 15,
+    matchs_joues: 7,
+  },
+  {
+    nom: "Équipe G",
+    points: 4,
+    buts_pour: 6,
+    buts_contre: 14,
+    matchs_joues: 7,
+  },
+  {
+    nom: "Équipe H",
+    points: 1,
+    buts_pour: 3,
+    buts_contre: 20,
+    matchs_joues: 7,
+  },
+];
+function calculateDiff(classement) {
+  classement.forEach((team) => {
+    let diff = team.buts_pour - team.buts_contre;
+    console.log("Team :" + team.nom + " " + "Goals Difference :" + diff);
+  });
+}
+calculateDiff(classement);
+
+function sortTeams(classement) {
+  sorted = classement.sort((a, b) => b.points - a.points);
+  return sorted;
+}
+console.log(sortTeams(classement));
+
+function match(team1, team2) {
+  let score1 = Math.floor(Math.random() * 6);
+  let score2 = Math.floor(Math.random() * 6);
+  team1.matchs_joues++;
+  team2.matchs_joues++;
+  team1.points += score1;
+  team2.points += score2;
+  team1.buts_pour += score1;
+  team1.buts_contre += score2;
+  team2.buts_pour += score2;
+  team2.buts_contre += score1;
+  if (score1 > score2) console.log(team1.nom + "wins");
+  else if (score2 < score1) console.log(team2.nom + "wins");
+  else {
+    console.log("Draw");
+  }
+}
+classement.forEach((team) => {
+  team.points = 0;
+  team.buts_pour = 0;
+  team.buts_contre = 0;
+  team.matchs_joues = 0;
+});
+
+console.log(classement);
+
+match(classement[1], classement[3]);
+match(classement[0], classement[2]);
+match(classement[1], classement[4]);
+match(classement[6], classement[5]);
+match(classement[3], classement[2]);
+console.log(classement);
