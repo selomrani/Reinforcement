@@ -169,3 +169,48 @@ function calculerSousTotal(array, codePromo) {
   console.log("Total : " + toto);
 }
 console.log(calculerSousTotal(panier, "LIVGRATUITE"));
+
+// ## R-Challenge 9 — Le convertisseur de devises 🔥
+
+// Tu crées un convertisseur multi-devises pour une application de finance.
+
+// 1. Crée un objet contenant les taux de change par rapport à l'euro : USD (1.08), GBP (0.86), MAD (10.85), JPY (162.5), CAD (1.47)
+// 2. Fonction `convertir(montant, deviseSource, deviseCible)` : convertit d'abord en euros puis dans la devise cible
+// 3. Fonction `convertirPanier(panier, deviseSource, deviseCible)` : prend un tableau de prix dans une devise et retourne les prix convertis
+// 4. Fonction `meilleurTaux(montant, deviseSource)` : affiche la valeur du montant dans TOUTES les devises disponibles
+// 5. Historique des conversions : chaque conversion est stockée avec la date, les montants et les devises. Affiche l'historique
+// 6. Statistiques : devise la plus demandée, montant total converti, conversion la plus fréquente
+
+const tauxDeChange = {
+  USD: 1.08,
+  GBP: 0.86,
+  MAD: 10.85,
+  JPY: 162.5,
+  CAD: 1.47,
+};
+function convertir(montant, deviseSource, deviseCible) {
+  let montantEnEuro = montant / tauxDeChange[deviseSource];
+  return montantEnEuro * tauxDeChange[deviseCible];
+}
+console.log(convertir(12, "USD", "MAD"));
+
+function convertirPanier(panier, deviseSource, deviseCible) {
+  panier.forEach((element) => {
+    console.log(convertir(element.produit.prix, deviseSource, deviseCible));
+  });
+}
+convertirPanier(panier, "CAD", "MAD");
+function meilleurTaux(montant, deviseSource) {
+  let ccc = [];
+  let c1 = convertir(montant, deviseSource, "CAD");
+  let c2 = convertir(montant, deviseSource, "JPY");
+  let c3 = convertir(montant, deviseSource, "MAD");
+  let c4 = convertir(montant, deviseSource, "GBP");
+  let c5 = convertir(montant, deviseSource, "USD");
+  ccc.push(c1, c2, c3, c4, c5);
+  let top = Math.max(...ccc);
+  return top;
+}
+console.log("Le meilleur montant est :", meilleurTaux(12, "MAD"));
+
+//ex05 historique des convertions
