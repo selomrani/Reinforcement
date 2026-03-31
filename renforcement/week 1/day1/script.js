@@ -236,3 +236,120 @@ function moinsClient(array) {
   // });
 }
 console.log(moinsClient(oco));
+
+// ## R-Challenge 3 — Le système de notation 🔥
+
+// Un site web de recettes a un tableau d'avis utilisateurs (pseudo, note de 1 à 5, commentaire, date). Tu as 15 avis.
+
+// 1. Calcule la note moyenne arrondie à 1 décimale
+// 2. Compte combien d'avis par note (combien de 1 étoile, combien de 2 étoiles, etc.)
+// 3. Filtre les avis positifs (≥ 4) et les avis négatifs (≤ 2)
+// 4. Trie les avis du plus récent au plus ancien
+// 5. Trouve l'avis le plus long (en nombre de caractères dans le commentaire)
+// 6. Crée un résumé : "4.2/5 basé sur 15 avis — 8 positifs, 3 négatifs, 4 neutres"
+
+let reviews = [
+  {
+    pseudo: "anon1",
+    noteFrom1To5: 3,
+    commentaire: "goood service",
+    date: "12/05/2025",
+  },
+  {
+    pseudo: "user22",
+    noteFrom1To5: 5,
+    commentaire: "Excellent experience!",
+    date: "13/05/2025",
+  },
+  {
+    pseudo: "tech_guy",
+    noteFrom1To5: 4,
+    commentaire: "Very fast delivery.",
+    date: "14/05/2025",
+  },
+  {
+    pseudo: "biker88",
+    noteFrom1To5: 2,
+    commentaire: "Product arrived damaged.",
+    date: "15/05/2025",
+  },
+  {
+    pseudo: "sara_m",
+    noteFrom1To5: 5,
+    commentaire: "Highly recommended!",
+    date: "16/05/2025",
+  },
+  {
+    pseudo: "johndoe",
+    noteFrom1To5: 1,
+    commentaire: "Terrible customer support.",
+    date: "17/05/2025",
+  },
+  {
+    pseudo: "traveler",
+    noteFrom1To5: 4,
+    commentaire: "Great value for money.",
+    date: "18/05/2025",
+  },
+  {
+    pseudo: "foodie",
+    noteFrom1To5: 3,
+    commentaire: "Average quality.",
+    date: "19/05/2025",
+  },
+  {
+    pseudo: "gamer99",
+    noteFrom1To5: 5,
+    commentaire: "Perfect, no issues.",
+    date: "20/05/2025",
+  },
+  {
+    pseudo: "nature_lover",
+    noteFrom1To5: 2.2,
+    commentaire: "Disappointed with the size.",
+    date: "21/05/2025",
+  },
+  {
+    pseudo: "bookworm",
+    noteFrom1To5: 4,
+    commentaire: "Good read, fast shipping.",
+    date: "22/05/2025",
+  },
+  {
+    pseudo: "fitness_freak",
+    noteFrom1To5: 5,
+    commentaire: "Best purchase this year!",
+    date: "23/05/2025",
+  },
+  {
+    pseudo: "coder_x",
+    noteFrom1To5: 3,
+    commentaire: "It's okay, does the job.",
+    date: "24/05/2025",
+  },
+  {
+    pseudo: "artist_a",
+    noteFrom1To5: 4.4,
+    commentaire: "Beautiful packaging.",
+    date: "25/05/2025",
+  },
+  {
+    pseudo: "music_fan",
+    noteFrom1To5: 1,
+    commentaire: "Never received my order.",
+    date: "26/05/2025",
+  },
+];
+
+//ex01
+function roundedAvg(array) {
+  let sum = 0;
+  array.forEach((element) => {
+    sum += element.noteFrom1To5;
+  });
+  let avg = sum / array.length;
+  return avg.toFixed(1);
+}
+console.log(roundedAvg(reviews));
+
+//ex 02
